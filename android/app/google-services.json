@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "571304228553",
+    "project_id": "notifee-cli",
+    "storage_bucket": "notifee-cli.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:571304228553:android:5c092778bf999ff785bf18",
+        "android_client_info": {
+          "package_name": "com.notifee_cli"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "571304228553-qieu8k0gr4388i53k1pn7md8ug8g12pu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDek-d3o7CidzrBn5_YPlqwnZqXzb2Q258"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "571304228553-qieu8k0gr4388i53k1pn7md8ug8g12pu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

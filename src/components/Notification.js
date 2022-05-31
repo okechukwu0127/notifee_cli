@@ -57,7 +57,6 @@ const Notification = () => {
       name: 'Default2 Channel',
     });
 
-
     notifee.displayNotification({
       body: 'Full-screen notification',
       android: {
@@ -71,6 +70,56 @@ const Notification = () => {
           id: 'default2',
         },
         asForegroundService: true,
+      },
+    });
+  }
+
+  //localDisplayNotification
+
+  async function setCategoriesIOS() {
+    await notifee.setNotificationCategories([
+      {
+        id: 'message',
+        actions: [
+          {
+            id: 'Accept-post',
+            title: 'Accept',
+            // Trigger the app to open in the foreground
+            foreground: true,
+          },
+          {
+            id: 'Reject-post',
+            title: 'Reject',
+          },
+        ],
+      },
+    ]);
+  }
+
+  async function localDisplayNotificationIOS() {
+    await setCategoriesIOS();
+    await notifee.displayNotification({
+      title: 'Your account requires attention',
+      body: 'You are overdue payment on one or more of your accounts!',
+
+      ios: {
+        categoryId: 'message',
+        foregroundPresentationOptions: {
+          alert: true,
+          badge: true,
+          sound: true,
+          // sound: 'alarm_997.wav',
+        },
+
+        attachments: [
+          {
+            // iOS resource
+            url: require('../assets/venco.png'),
+            // url: 'https://media.licdn.com/media/AAYQAgTPAAgAAQAAAAAAADVuOvKzTF-3RD6j-qFPqhubBQ.png',
+
+            thumbnailHidden: false,
+          },
+        ],
       },
     });
   }
@@ -91,6 +140,7 @@ const Notification = () => {
         '<p style="color: #4caf50;"><b>Styled HTMLTitle</span></p></b></p> &#128576;',
       subtitle: '&#129395;',
       body: 'The <p style="text-decoration: line-through">body can</p> also be <p style="color: #ffffff; background-color: #9c27b0"><i>styled too</i></p> &#127881;!',
+
       android: {
         channelId,
 
@@ -108,6 +158,17 @@ const Notification = () => {
           },
         ],
       },
+
+      actions: [
+        {
+          title: '<b>Accept</b> &#128111;',
+          pressAction: {id: 'dance'},
+        },
+        {
+          title: '<p style="color: #f44336;"><b>Reject</b> &#128557;</p>',
+          pressAction: {id: 'cry'},
+        },
+      ],
     });
   }
 
@@ -152,48 +213,37 @@ const Notification = () => {
     return unsubscribe;
   }, []);
 
-  return (
+  return Platform.OS === 'android' ? (
     <ActionButton bgColor="#13151387" buttonColor="rgba(231,76,60,1)">
-      {/* <ActionButton.Item
-        buttonColor="#9b59b6"
-        //title={Platform.OS}
-        title="Critical Notifications"
-        onPress={() => remoteDisplayNotification()}>
-        <Icon name="md-create" style={styles.actionButtonIcon} />
+      <ActionButton.Item
+        buttonColor="#1abc9c"
+        title="Local Notification"
+        onPress={() => localDisplayNotification()}>
+        <Icon name="md-aperture-sharp" style={styles.actionButtonIcon} />
       </ActionButton.Item>
+
+      <ActionButton.Item
+        buttonColor="#1abc9c"
+        title="FullScreen Notification"
+        onPress={() => fullScreenNotification()}>
+        <Icon name="md-browsers-outline" style={styles.actionButtonIcon} />
+      </ActionButton.Item>
+
       <ActionButton.Item
         buttonColor="#3498db"
-        title="Image in notification"
-        onPress={() => {}}>
-        <Icon name="md-notifications-off" style={styles.actionButtonIcon} />
-      </ActionButton.Item> */}
-
-      {Platform.OS == 'android' ? (
-        <ActionButton.Item
-          buttonColor="#1abc9c"
-          title="Local Notification"
-          onPress={() => localDisplayNotification()}>
-          <Icon name="md-aperture-sharp" style={styles.actionButtonIcon} />
-        </ActionButton.Item>
-      ) : null}
-
-      {Platform.OS == 'android' ? (
-        <ActionButton.Item
-          buttonColor="#1abc9c"
-          title="FullScreen Notification"
-          onPress={() => fullScreenNotification()}>
-          <Icon name="md-browsers-outline" style={styles.actionButtonIcon} />
-        </ActionButton.Item>
-      ) : null}
-
-      {Platform.OS == 'android' ? (
-        <ActionButton.Item
-          buttonColor="#3498db"
-          title="Big Picture Notification"
-          onPress={() => bigPictureStyleDisplayNotification()}>
-          <Icon name="md-browsers-outline" style={styles.actionButtonIcon} />
-        </ActionButton.Item>
-      ) : null}
+        title="Big Picture Notification"
+        onPress={() => bigPictureStyleDisplayNotification()}>
+        <Icon name="md-browsers-outline" style={styles.actionButtonIcon} />
+      </ActionButton.Item>
+    </ActionButton>
+  ) : (
+    <ActionButton bgColor="#13151387" buttonColor="rgba(231,76,60,1)">
+      <ActionButton.Item
+        buttonColor="#1abc9c"
+        title="Local Notification"
+        onPress={() => localDisplayNotificationIOS()}>
+        <Icon name="md-aperture-sharp" style={styles.actionButtonIcon} />
+      </ActionButton.Item>
     </ActionButton>
   );
 };

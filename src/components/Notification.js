@@ -13,6 +13,7 @@ import notifee, {
   EventType,
   AndroidImportance,
   AndroidStyle,
+  AndroidCategory,
 } from '@notifee/react-native';
 
 import ActionButton from 'react-native-action-button';
@@ -58,16 +59,17 @@ const Notification = () => {
     });
 
     notifee.displayNotification({
-      body: 'Full-screen notification',
+      title: '<p style="color: #4caf50;"><b>Test Title</span></b></p>',
+      body: '<p style="margin-top:10px">Test Body</p>',
       android: {
         // Recommended to set a category
-        category: AndroidCategory.CALL,
+        category: AndroidCategory.ALARM,
         // Recommended to set importance to high
         importance: AndroidImportance.HIGH,
-
         channelId,
+        color: '#4caf50',
         fullScreenAction: {
-          id: 'default2',
+          id: 'default',
         },
         asForegroundService: true,
       },

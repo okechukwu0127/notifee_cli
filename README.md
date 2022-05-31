@@ -23,6 +23,7 @@ Integration was also done with Notifee to handle action labels and action press 
 
 ## `Usefull Links`
 
+- [React Native Doc] (https://reactnative.dev/docs/environment-setup)
 - [Notifee Doc] (https://notifee.app/react-native/docs/overview)
 - [RN Firebase Doc] (https://rnfirebase.io/)
 - [Youtube Guild] (https://www.youtube.com/watch?v=FfJ1j-uCnd4)
